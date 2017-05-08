@@ -177,33 +177,25 @@ print(ratings1)
 
 
 
-select = rated_movies[['title', 'rating']]
-agrupar = select.groupby('title')
-contar = agrupar.count().sort_values('rating', ascending=False)
+#select = rated_movies[['title', 'rating']]
+#agrupar = select.groupby('title')
+#contar = agrupar.count().sort_values('rating', ascending=False)
 
+contar = rated_movies.groupby('title').size()
 a = contar.ix[movie]
 
-count_dict = a.to_dict()
-count_items = count_dict['rating'].items()
-
-conteo = []
-
-
-for name, value in count_items:
-    conteo.append(value)
-print(conteo)
-
+print(a)
 
 fig, ax = plt.subplots()
-ax.scatter(ratings1, conteo)
+ax.scatter(a, ratings1)
 
 for i, txt in enumerate(movie):
- ax.annotate(txt, (ratings1[i],conteo[i]))
+ ax.annotate(txt, (a[i],ratings1[i]))
 
 
-plt.xlabel('ratings')
-plt.ylabel('votos')
-plt.title('top 5')
+plt.xlabel('votos')
+plt.ylabel('ratings')
+plt.title('Relacion de ratings contra votos')
 
 plt.show()
 
